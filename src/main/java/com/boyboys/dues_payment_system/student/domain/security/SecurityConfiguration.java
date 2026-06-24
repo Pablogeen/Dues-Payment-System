@@ -33,7 +33,7 @@ public class SecurityConfiguration {
         http.sessionManagement(session ->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.authorizeHttpRequests(requests -> requests
-                .requestMatchers("/api/v1/auth/login", "/api/v1/auth/verify","/api/v1/auth/register-student",
+                .requestMatchers("/api/v1/auth/login", "/api/v1/auth/verify","/api/v1/students/register-student",
                         "/api/v1/auth/resend-verification",
                         "/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html")
                 .permitAll().anyRequest().authenticated());

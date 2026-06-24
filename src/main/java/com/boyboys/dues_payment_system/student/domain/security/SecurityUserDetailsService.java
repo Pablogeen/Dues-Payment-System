@@ -27,6 +27,8 @@ public class SecurityUserDetailsService implements UserDetailsService {
                 .email(student.getEmail())
                 .phoneNumber(student.getPhoneNumber())
                 .level(student.getLevel())
+                .academicYear(student.getAcademicYear())
+                .programme(student.getProgramme())
                 .qualificationType(student.getQualificationType())
                 .role(student.getRole())
                 .build();

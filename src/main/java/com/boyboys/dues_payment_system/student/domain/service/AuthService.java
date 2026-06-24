@@ -1,7 +1,7 @@
 package com.boyboys.dues_payment_system.student.domain.service;
 
 import com.boyboys.dues_payment_system.student.Student;
-import com.boyboys.dues_payment_system.student.UserLoginEvent;
+import com.boyboys.dues_payment_system.student.StudentLoginEvent;
 import com.boyboys.dues_payment_system.student.domain.*;
 import com.boyboys.dues_payment_system.student.domain.dto.AuthResponse;
 import com.boyboys.dues_payment_system.student.domain.dto.ConfirmationTokenRequest;
@@ -12,7 +12,6 @@ import com.boyboys.dues_payment_system.student.domain.security.JwtHelper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
@@ -50,7 +49,7 @@ public class AuthService {
             log.info("Token has been saved");
 
             //Event will be published to send email
-            eventPublisher.publishEvent(new UserLoginEvent(student.getEmail(), student.getFirstName(), token));
+            eventPublisher.publishEvent(new StudentLoginEvent(student.getEmail(), student.getFirstName(), token));
 
             return "VERIFICATION EMAIL WAS SENT TO YOUR EMAIL";
         }
@@ -100,7 +99,6 @@ public class AuthService {
 
             return response;
         }
-
 
     @Transactional
     public String resendVerificationToken(String email) {

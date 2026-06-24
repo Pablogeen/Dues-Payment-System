@@ -28,6 +28,8 @@ public class Student {
     private String email;
     @Column(name = "phone_number", length = 50)
     private String phoneNumber;
+    @Column(name = "academic_year", length = 20, nullable = false)
+    private String academicYear;
     @Enumerated(EnumType.STRING)
     private Level level;
     @Enumerated(EnumType.STRING)
@@ -36,6 +38,9 @@ public class Student {
     private Role role;
     @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "programme", nullable = false)
+    private Programme programme;
 
 
 

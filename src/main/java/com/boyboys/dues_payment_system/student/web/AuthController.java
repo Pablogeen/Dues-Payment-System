@@ -62,4 +62,6 @@ public class AuthController {
         log.info("Student logged out successfully");
         return new ResponseEntity<>(logoutMessage, HttpStatus.OK);
     }
+
+
 }
