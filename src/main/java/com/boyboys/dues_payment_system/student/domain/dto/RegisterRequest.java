@@ -1,5 +1,6 @@
 package com.boyboys.dues_payment_system.student.domain.dto;
 
+import com.boyboys.dues_payment_system.student.Programme;
 import com.boyboys.dues_payment_system.student.domain.Level;
 import com.boyboys.dues_payment_system.student.domain.Qualification;
 import jakarta.validation.constraints.Email;
@@ -27,6 +28,12 @@ public class RegisterRequest {
 
     @NotBlank(message = "Last name is required")
     private String phoneNumber;
+
+    @NotBlank(message = "Academic year is required")
+    private String academicYear;
+
+    @NotNull(message = "Programme is required")
+    private Programme programme;
 
     @NotNull(message = "Last name is required")
     private Qualification qualificationType;

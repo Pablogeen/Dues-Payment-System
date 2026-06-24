@@ -77,7 +77,7 @@ public class RateLimitFilter extends OncePerRequestFilter{
     private BucketConfiguration getBucketConfig(String path) {
         if (path.equals("/api/v1/auth/login")) {
             return rateLimitConfig.loginConfig();
-        } else if (path.equals("/api/v1/auth/register-student")) {
+        } else if (path.equals("/api/v1/students/register-student")) {
             return rateLimitConfig.registerStudentConfig();
         } else if (path.equals("/api/v1/auth/verify")) {
             return rateLimitConfig.verifyConfig();

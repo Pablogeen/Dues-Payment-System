@@ -35,7 +35,7 @@ public class JwtFilter extends OncePerRequestFilter {
         List<String> publicPaths = List.of(
                 "/api/v1/auth/login",
                 "/api/v1/auth/verify",
-                "/api/v1/auth/register-student",
+                "/api/v1/students/register-student",
                 "/api/v1/auth/resend-verification",
                 "/swagger-ui.html");
         return publicPaths.contains(path) ||
@@ -63,7 +63,7 @@ public class JwtFilter extends OncePerRequestFilter {
                 UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
                 if (jwtHelper.isTokenValid(token, userDetails)) {
-                    Student user = userRepo.findByEmail(userDetails.getUsername())
+                    Student student = userRepo.findByEmail(userDetails.getUsername())
                             .orElseThrow(() -> new StudentNotFoundException("USER NOT FOUND"));
 
                     String role = jwtHelper.extractRole(token);
@@ -72,7 +72,7 @@ public class JwtFilter extends OncePerRequestFilter {
                             List.of(new SimpleGrantedAuthority(role));
 
                     UsernamePasswordAuthenticationToken authToken =
-                            new UsernamePasswordAuthenticationToken(user, null, authorities);
+                            new UsernamePasswordAuthenticationToken(student, null, authorities);
                     authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                 }
