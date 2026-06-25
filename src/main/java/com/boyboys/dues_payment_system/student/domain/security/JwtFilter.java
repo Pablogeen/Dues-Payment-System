@@ -37,6 +37,7 @@ public class JwtFilter extends OncePerRequestFilter {
                 "/api/v1/auth/verify",
                 "/api/v1/students/register-student",
                 "/api/v1/auth/resend-verification",
+                "/api/v1/payments/webhook",
                 "/swagger-ui.html");
         return publicPaths.contains(path) ||
                 path.startsWith("/swagger-ui") ||
