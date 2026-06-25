@@ -1,7 +1,7 @@
 package com.boyboys.dues_payment_system.student.web;
 
 import com.boyboys.dues_payment_system.student.Programme;
-import com.boyboys.dues_payment_system.student.domain.PaymentStatus;
+import com.boyboys.dues_payment_system.student.PaymentStatus;
 import com.boyboys.dues_payment_system.student.domain.dto.ImportSummary;
 import com.boyboys.dues_payment_system.student.domain.dto.RegisterRequest;
 import com.boyboys.dues_payment_system.student.domain.dto.StudentResponse;
@@ -40,7 +40,7 @@ public class StudentController {
     }
 
     @PostMapping("/register-student")
-    //@PreAuthorize("hasAnyAuthority('PRESIDENT','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('PRESIDENT','ADMIN')")
     public ResponseEntity<StudentResponse> registerStudent(@RequestBody @Valid RegisterRequest request) {
         log.info("Request made to register a single student to the system : {}",request.getEmail());
         StudentResponse response = studentService.registerStudent(request);
@@ -81,7 +81,7 @@ public class StudentController {
     }
 
     @PutMapping("/{email}/assign-role")
-    @PreAuthorize("hasAnyAuthority('PRESIDENT','FINANCIAL_SECRETARY')")
+    @PreAuthorize("hasAnyAuthority('PRESIDENT','ADMIN')")
     public ResponseEntity<StudentResponse> assignRole(@PathVariable String email) {
         log.info("Assigning role to student with email: {}", email);
         StudentResponse studentResponse = studentService.assignRole(email);
@@ -90,7 +90,7 @@ public class StudentController {
     }
 
     @PutMapping("/{email}/revoke-role")
-    @PreAuthorize("hasAnyAuthority('PRESIDENT','FINANCIAL_SECRETARY')")
+    @PreAuthorize("hasAnyAuthority('PRESIDENT','ADMIIN')")
     public ResponseEntity<StudentResponse> revokeRole(@PathVariable String email) {
         log.info("Revoking role from student with email: {}", email);
         StudentResponse studentResponse = studentService.revokeRole(email);
@@ -123,7 +123,7 @@ public class StudentController {
     }
 
     @GetMapping("/payment-status")
-    @PreAuthorize("hasAnyAuthority('PRESIDENT','FINANCIAL_SECRETARY')")
+    @PreAuthorize("hasAnyAuthority('PRESIDENT','FINANCIAL_SECRETARY','ADMIN')")
     public ResponseEntity<List<StudentResponse>> getStudentsByPaymentStatus(
                             @RequestParam String paymentStatus,
                             @RequestParam(defaultValue = "0") int page,
@@ -136,7 +136,7 @@ public class StudentController {
     }
 
     @GetMapping("/programme")
-    @PreAuthorize("hasAnyAuthority('PRESIDENT','FINANCIAL_SECRETARY')")
+    @PreAuthorize("hasAnyAuthority('PRESIDENT','FINANCIAL_SECRETARY','ADMIN')")
     public ResponseEntity<List<StudentResponse>> getStudentsByProgramme(
                                 @RequestParam Programme programme,
                                 @RequestParam(defaultValue = "0") int page,
@@ -149,7 +149,7 @@ public class StudentController {
     }
 
     @GetMapping("/programme/payment-status")
-    @PreAuthorize("hasAnyAuthority('PRESIDENT','FINANCIAL_SECRETARY')")
+    @PreAuthorize("hasAnyAuthority('PRESIDENT','FINANCIAL_SECRETARY','ADMIN')")
     public ResponseEntity<List<StudentResponse>> getStudentsByProgrammeAndPaymentStatus(
                                     @RequestParam Programme programme,
                                     @RequestParam PaymentStatus paymentStatus,
