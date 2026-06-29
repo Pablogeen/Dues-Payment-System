@@ -9,6 +9,8 @@ import com.boyboys.dues_payment_system.student.Student;
 import com.boyboys.dues_payment_system.student.PaymentStatus;
 import com.boyboys.dues_payment_system.student.domain.dto.CsvParseResult;
 import com.boyboys.dues_payment_system.student.domain.exception.InvalidFileException;
+import io.micrometer.core.instrument.Counter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,7 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class StudentCsvParser {
+
+    private final Counter studentImportedCounter;
 
     private static final long MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
     private static final List<String> VALID_LEVELS = List.of("L100", "L200", "L300", "L400");
@@ -129,6 +134,7 @@ public class StudentCsvParser {
                 student.setProgramme(programme);
 
                 validUsers.add(student);
+                studentImportedCounter.increment();
             }
 
         } catch (IOException e) {
