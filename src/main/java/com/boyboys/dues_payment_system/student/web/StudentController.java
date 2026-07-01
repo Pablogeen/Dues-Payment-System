@@ -116,7 +116,7 @@ public class StudentController {
             summary = "Revoke role",
             description = "This endpoint enables the the president or admin revoke a role of a student")
     @PutMapping("/{email}/revoke-role")
-    @PreAuthorize("hasAnyAuthority('PRESIDENT','ADMIIN')")
+    @PreAuthorize("hasAnyAuthority('PRESIDENT','ADMIN')")
     public ResponseEntity<StudentResponse> revokeRole(@PathVariable String email) {
         log.info("Revoking role from student with email: {}", email);
         StudentResponse studentResponse = studentService.revokeRole(email);
